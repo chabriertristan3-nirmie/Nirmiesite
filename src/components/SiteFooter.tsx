@@ -41,9 +41,10 @@ export default function SiteFooter() {
             <h5>Nirmie</h5>
             <div className="footer-links">
               <Link href="/contact">Contact</Link>
-              <Link href="/contact">Mentions légales</Link>
-              <Link href="/contact">Confidentialité</Link>
-              <Link href="/contact">CGU</Link>
+              <Link href="/support">Support</Link>
+              <Link href="/mentions-legales">Mentions légales</Link>
+              <Link href="/confidentialite">Confidentialité</Link>
+              <Link href="/cgu">CGU</Link>
             </div>
           </div>
         </div>
