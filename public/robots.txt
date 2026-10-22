@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /pro/
+
+Sitemap: https://www.nirmie.fr/sitemap.xml
