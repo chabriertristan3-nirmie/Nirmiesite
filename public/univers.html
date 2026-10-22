@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>L'univers Nirmie | La Source, l'Ætheris et les 8 clans</title>
+<meta name="description" content="Nirmia, planète vivante traversée par l'Ætheris. Après la chute, les Nirmies s'exilent sur Terre. Explorez le monde réel pour les réveiller.">
+<link rel="icon" type="image/png" href="assets/emblem-electric.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="L'univers Nirmie">
+<meta property="og:description" content="Nirmia, planète vivante traversée par l'Ætheris. Après la chute, les Nirmies s'exilent sur Terre. Explorez le monde réel pour les réveiller.">
+<meta property="og:image" content="assets/hero-group.webp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#03110A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+/* hero */
+.uhero { position: relative; min-height: 86vh; display: flex; align-items: flex-end; overflow: hidden; padding-bottom: 70px; }
+.uhero-bg { position: absolute; inset: 0; z-index: 0; }
+.uhero-bg img { width: 100%; height: 100%; object-fit: cover; }
+.uhero-bg::after { content:""; position:absolute; inset:0; background: linear-gradient(180deg, rgba(3,17,10,.5) 0%, rgba(3,17,10,.1) 30%, rgba(3,17,10,.9) 100%), linear-gradient(90deg, rgba(3,17,10,.85) 0%, rgba(3,17,10,.35) 45%, transparent 75%); }
+.uhero .wrap { position: relative; z-index: 1; }
+.uhero h1 { max-width: 16ch; }
+.uhero .lead { max-width: 52ch; }
+
+/* narrative timeline (compact) */
+.acts { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:14px; position:relative; }
+.acts::before { content:""; position:absolute; left:4%; right:4%; top:9px; height:2px; background:linear-gradient(90deg, transparent, var(--electric) 15%, var(--electric) 85%, transparent); opacity:.45; }
+.act { position:relative; padding-top:34px; }
+.act::before { content:""; position:absolute; top:0; left:0; width:18px; height:18px; border-radius:50%; background:var(--electric); box-shadow:0 0 0 6px rgba(79,217,0,.12), var(--glow-soft); }
+.act-num { font-family: var(--display); font-weight: 800; font-size: 12px; letter-spacing: .2em; color: var(--electric); }
+.act h3 { font-size: 1.12rem; margin: 6px 0 8px; }
+.act p { color: var(--ink-mute); margin: 0; font-size: 13.5px; }
+/* eyes / states */
+.states { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; }
+.state { border:1px solid var(--line); border-radius: var(--r-lg); overflow:hidden; background: var(--bg-1); }
+.state-media { height: 220px; position: relative; overflow:hidden; display:flex; align-items:center; justify-content:center; background: radial-gradient(circle at 50% 40%, rgba(79,217,0,.12), transparent 70%); }
+.state-media img { width: 78%; height: 100%; object-fit: contain; }
+.state-body { padding: 20px 22px 24px; }
+.state-eye { width: 14px; height: 14px; border-radius: 50%; display:inline-block; margin-right: 8px; vertical-align: middle; }
+.eye-vivant { background: var(--electric); box-shadow: 0 0 12px var(--electric); }
+.eye-veille { background: #c9d6c4; }
+.eye-mort { background: #0c0c0c; border:1px solid #333; }
+.eye-corrupt { background: linear-gradient(90deg, var(--electric), #E0241B); box-shadow: 0 0 10px rgba(224,36,27,.6); }
+.state h4 { font-size: 1.15rem; display:flex; align-items:center; }
+.state p { color: var(--ink-mute); font-size: 13.5px; margin: 8px 0 0; }
+.state.corrupt .state-media { background: radial-gradient(circle at 50% 40%, rgba(224,36,27,.16), transparent 70%); }
+.state.dead .state-media { background: radial-gradient(circle at 50% 40%, rgba(255,255,255,.05), transparent 70%); }
+.cocon-free img { width:100%; max-width:540px; display:block; margin:auto; filter: drop-shadow(0 34px 50px rgba(0,0,0,.6)) drop-shadow(0 0 40px rgba(143,211,255,.22)); animation: floaty-slow 8s ease-in-out infinite; }
+
+/* clans */
+.clans { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; }
+.clan { position: relative; border-radius: var(--r-lg); overflow: hidden; border: 1px solid var(--line); aspect-ratio: 3/4; display: flex; flex-direction: column; justify-content: flex-end; transition: transform .4s var(--ease), box-shadow .4s; }
+.clan:hover { transform: translateY(-6px); box-shadow: 0 24px 50px rgba(0,0,0,.5), 0 0 30px var(--c-glow); }
+.clan img { position: absolute; inset: 0; width:100%; height:100%; object-fit: cover; z-index:0; transition: transform .6s var(--ease); }
+.clan:hover img { transform: scale(1.06); }
+.clan img.cut { object-fit:contain; object-position:center 20%; padding:8% 8% 34%; background:radial-gradient(circle at 50% 35%, var(--c-glow), transparent 65%), var(--bg-1); }
+.clan::after { content:""; position:absolute; inset:0; z-index:1; background: linear-gradient(180deg, transparent 35%, rgba(3,14,8,.95) 92%); }
+.clan-inner { padding: 22px 22px 24px; position: relative; z-index: 2; }
+.clan-el { display:inline-flex; align-items:center; gap:7px; font-size: 11.5px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color: var(--c-accent); margin-bottom: 8px; }
+.clan-el::before { content:""; width:8px; height:8px; border-radius:50%; background: var(--c-accent); box-shadow: 0 0 10px var(--c-accent); }
+.clan h4 { font-size: 1.45rem; }
+.clan .city { font-size: 13px; color: var(--ink-soft); margin-top: 3px; }
+.clan .kw { margin-top: 12px; display:flex; gap:6px; flex-wrap:wrap; }
+.clan .kw span { font-size: 11px; padding: 4px 9px; border-radius: 999px; border:1px solid rgba(255,255,255,.16); color: var(--ink-soft); background: rgba(0,0,0,.25); }
+
+/* aether definition split */
+.split { display:grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items:center; }
+.split-media { border-radius: var(--r-xl); overflow:hidden; border:1px solid var(--line); position:relative; aspect-ratio: 4/3; }
+.split-media img { width:100%; height:100%; object-fit:cover; }
+.def-list { display:grid; gap: 14px; margin-top: 26px; }
+.def { display:flex; gap:16px; padding: 18px 20px; border:1px solid var(--line); border-radius: var(--r); background: rgba(255,255,255,.02); }
+.def b { font-family:var(--display); display:block; margin-bottom: 4px; }
+.def span { color: var(--ink-mute); font-size: 14px; }
+.def .dico { flex:0 0 auto; width:42px; height:42px; border-radius:12px; background:rgba(79,217,0,.1); border:1px solid var(--line-strong); display:flex;align-items:center;justify-content:center;color:var(--electric); }
+.def .dico svg { width:20px;height:20px; }
+
+@media (max-width: 1000px){ .clans, .states { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 820px){
+  .acts { grid-template-columns:1fr; gap:22px; } .acts::before { left:8px; right:auto; top:0; bottom:0; width:2px; height:auto; background:linear-gradient(180deg,var(--electric),transparent); } .act { padding:0 0 0 34px; }
+  .split { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px){ .clans, .states { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body data-page="univers">
+
+<!-- HERO -->
+<header class="uhero">
+  <div class="uhero-bg" data-parallax="0.06"><img src="assets/scene-a.png" alt="Forêt magique d'Ætheris"></div>
+  <div class="wrap">
+    <span class="eyebrow reveal">L'univers Nirmie</span>
+    <h1 class="h-hero reveal mt-1" data-delay="1">Un monde vivant,<br>une <span class="grad-text">énergie sacrée</span>.</h1>
+    <p class="lead reveal mt-2" data-delay="2">Nirmia était une planète vivante traversée par l'Ætheris. Après la chute de leur monde, les Nirmies se sont exilés sur Terre. Beaucoup sont tombés en veille. À vous d'explorer le monde réel pour collecter l'Ætheris et les réveiller.</p>
+    <div class="row reveal mt-3" data-delay="3">
+      <a class="btn btn-primary btn-lg" href="application.html">Commencer l'aventure</a>
+      <a class="btn btn-ghost btn-lg" href="#clans">Découvrir les clans</a>
+    </div>
+  </div>
+</header>
+
+<!-- AETHERIS DEFINITION -->
+<section class="section">
+  <div class="wrap split">
+    <div class="reveal">
+      <span class="eyebrow">L'Ætheris</span>
+      <h2 class="h1 mt-1">L'énergie vitale qui circule dans toute chose</h2>
+      <p class="lead mt-2">Au commencement, il n'existait qu'un chaos de particules. Puis la Source s'éveilla et façonna Nirmia, et avec elle l'Ætheris, un flux vivant qui nourrit le monde comme un organisme.</p>
+      <div class="def-list">
+        <div class="def">
+          <div class="dico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></div>
+          <div><b>La Source</b><span>L'origine de tout. Elle stabilise l'informe et donne naissance à Nirmia.</span></div>
+        </div>
+        <div class="def">
+          <div class="dico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8 7 6 10 6 14a6 6 0 0012 0c0-4-2-7-6-12z"/></svg></div>
+          <div><b>L'Ætheris</b><span>L'énergie vitale. Visible dans le regard des Nirmies vivants.</span></div>
+        </div>
+        <div class="def">
+          <div class="dico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a9 9 0 100 18 4.5 4.5 0 010-9 4.5 4.5 0 000-9z"/></svg></div>
+          <div><b>Le cycle ∞</b><span>La Passation : à sa fin, un Nirmie offre son énergie au flux. Rien ne se perd.</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="split-media reveal" data-delay="1">
+      <img src="assets/scene-h.png" alt="Anneau d'Ætheris">
+    </div>
+  </div>
+</section>
+
+<!-- EYE STATES -->
+<section class="section-sm">
+  <div class="wrap">
+    <div class="center" style="max-width:680px;margin-inline:auto;margin-bottom:50px">
+      <span class="eyebrow reveal" style="justify-content:center">Langage visuel canon</span>
+      <h2 class="h1 reveal mt-1" data-delay="1">L'état d'un Nirmie se lit dans ses yeux</h2>
+      <p class="lead reveal mt-2" data-delay="2">L'Ætheris est visible dans le regard. C'est le signe de vie, ou de sa perte.</p>
+    </div>
+    <div class="states">
+      <div class="state reveal">
+        <div class="state-media"><img src="assets/v-volcory.png" alt="Volcory vivant, yeux verts"></div>
+        <div class="state-body"><h4><span class="state-eye eye-vivant"></span>Vivant</h4><p>Yeux verts Nirmie, l'Ætheris circule, la créature est éveillée.</p></div>
+      </div>
+      <div class="state reveal" data-delay="1">
+        <div class="state-media"><img src="assets/v-volcory-cocon.png" alt="Volcory en veille dans son cocon, regard vide"></div>
+        <div class="state-body"><h4><span class="state-eye eye-veille"></span>Veille</h4><p>Regard vide, sans couleur. Le corps subsiste, l'âme s'est tue.</p></div>
+      </div>
+      <div class="state dead reveal" data-delay="2">
+        <div class="state-media"><img src="assets/v-volcory-mort.png" alt="Volcory mort, yeux noirs"></div>
+        <div class="state-body"><h4><span class="state-eye eye-mort"></span>Mort</h4><p>Yeux noirs, vidés. L'Ætheris se dissipe et retourne au cycle.</p></div>
+      </div>
+      <div class="state corrupt reveal" data-delay="3">
+        <div class="state-media"><img src="assets/v-volcory-corrompu.png" alt="Volcory corrompu, yeux rouges"></div>
+        <div class="state-body"><h4><span class="state-eye eye-corrupt"></span>Corruption</h4><p>Le vert du regard vire au rouge. L'Ætheris se corrompt, la créature bascule vers le déséquilibre.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NARRATIVE ACTS -->
+<section class="section">
+  <div class="wrap">
+    <div class="center" style="max-width:680px;margin-inline:auto;margin-bottom:60px">
+      <span class="eyebrow reveal" style="justify-content:center">La chute de Nirmia</span>
+      <h2 class="h1 reveal mt-1" data-delay="1">Cinq actes, une mémoire</h2>
+    </div>
+    <div class="acts">
+      <div class="act reveal"><div class="act-num">ACTE I</div><h3>L'Aube de la Source</h3><p>La Source ordonne le chaos. Naissent Nirmia, l'Ætheris et les 8 Originels.</p></div>
+      <div class="act reveal" data-delay="1"><div class="act-num">ACTE II</div><h3>L'Âge des Cités</h3><p>Les capitales grandissent. Une élite apprend à retenir l'Ætheris.</p></div>
+      <div class="act reveal" data-delay="2"><div class="act-num">ACTE III</div><h3>Les Guerres de l'Ætheris</h3><p>L'énergie fuit, se corrompt, se capture. La guerre nourrit le chaos.</p></div>
+      <div class="act reveal" data-delay="3"><div class="act-num">ACTE IV</div><h3>La Rupture</h3><p>Un Gardien arrache un fragment du Cœur. Nirmia s'effondre.</p></div>
+      <div class="act reveal" data-delay="4"><div class="act-num">ACTE V</div><h3>L'Exil sur Terre</h3><p>Les survivants arrivent sur Terre. Beaucoup tombent en veille.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- VEILLE / COCONS -->
+<section class="section-sm">
+  <div class="wrap split">
+    <div class="cocon-free reveal">
+      <img src="assets/n-cocon-solfyr.png" alt="Solfyr endormi dans son cocon">
+    </div>
+    <div class="reveal" data-delay="1">
+      <span class="eyebrow">Les Nirmies en veille</span>
+      <h2 class="h1 mt-1">Endormis dans leurs cocons, ils attendent</h2>
+      <p class="lead mt-2">Incapables de supporter le choc de la Rupture, beaucoup de Nirmies se sont enfermés dans un sommeil énergétique. Leur corps subsiste, leur regard s'éteint.</p>
+      <p class="lead mt-2">En explorant le monde réel et en collectant de l'Ætheris, les joueurs réveillent ces créatures, une à une, et relancent un cycle nouveau.</p>
+      <a class="btn btn-primary mt-3" href="application.html">Réveiller un Nirmie
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m0 0l-6-6m6 6l-6 6"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- 8 CLANS -->
+<section class="section" id="clans">
+  <div class="wrap">
+    <div class="center" style="max-width:720px;margin-inline:auto;margin-bottom:54px">
+      <span class="eyebrow reveal" style="justify-content:center">Les 8 Originels</span>
+      <h2 class="h1 reveal mt-1" data-delay="1">Huit clans, huit éléments</h2>
+      <p class="lead reveal mt-2" data-delay="2">Chaque Originel est né d'une formule sacrée, l'Ætheris associé à un unique élément naturel, et porte la signature de son clan.</p>
+    </div>
+    <div class="clans">
+      <div class="clan reveal" style="--c-accent:#FFD24A;--c-glow:rgba(255,210,74,.35)"><img src="assets/scene-o.png" alt="Lumiris"><div class="clan-inner"><span class="clan-el">Lumière</span><h4>Lumiris</h4><div class="city">Aurorel · la cité-aube</div><div class="kw"><span>halo</span><span>nacre</span><span>éclat</span></div></div></div>
+      <div class="clan reveal" data-delay="1" style="--c-accent:#3BE0C0;--c-glow:rgba(59,224,192,.35)"><img src="assets/scene-q.png" alt="Valmirs"><div class="clan-inner"><span class="clan-el">Roche · Cristal</span><h4>Valmirs</h4><div class="city">Crysélia · la ville-prisme</div><div class="kw"><span>facettes</span><span>symétrie</span><span>réfraction</span></div></div></div>
+      <div class="clan reveal" data-delay="2" style="--c-accent:#9B6BFF;--c-glow:rgba(155,107,255,.4)"><img src="assets/scene-n.png" alt="Noctyrs"><div class="clan-inner"><span class="clan-el">Ombre</span><h4>Noctyrs</h4><div class="city">Noxvera · citadelle d'obsidienne</div><div class="kw"><span>contraste</span><span>brume</span><span>obsidienne</span></div></div></div>
+      <div class="clan reveal" data-delay="3" style="--c-accent:#BFEFFF;--c-glow:rgba(191,239,255,.35)"><img src="assets/scene-p.png" alt="Zéphyris"><div class="clan-inner"><span class="clan-el">Vent</span><h4>Zéphyris</h4><div class="city">Aérélune · la ville suspendue</div><div class="kw"><span>lévitation</span><span>voiles</span><span>harmoniques</span></div></div></div>
+      <div class="clan reveal" style="--c-accent:#4AA8FF;--c-glow:rgba(74,168,255,.4)"><img src="assets/scene-m.png" alt="Thalmyrs"><div class="clan-inner"><span class="clan-el">Eau</span><h4>Thalmyrs</h4><div class="city">Abyssoria · les dômes des marées</div><div class="kw"><span>biolumi</span><span>corail</span><span>profondeur</span></div></div></div>
+      <div class="clan reveal" data-delay="1" style="--c-accent:#FF6A3D;--c-glow:rgba(255,106,61,.4)"><img src="assets/n-pyrelion.png" alt="Pyrelion, clan Pyronis" class="cut"><div class="clan-inner"><span class="clan-el">Feu</span><h4>Pyronis</h4><div class="city">Brasélys · la forge-cité</div><div class="kw"><span>braise</span><span>basalte</span><span>fissures</span></div></div></div>
+      <div class="clan reveal" data-delay="2" style="--c-accent:#4FD900;--c-glow:rgba(79,217,0,.45)"><img src="assets/n-sylkor.png" alt="Sylkor, clan Sylvanis" class="cut"><div class="clan-inner"><span class="clan-el">Forêt</span><h4>Sylvanis</h4><div class="city">la ville-racine</div><div class="kw"><span>feuille</span><span>sève</span><span>nature vivante</span></div></div></div>
+      <div class="clan reveal" data-delay="3" style="--c-accent:#E6FFD9;--c-glow:rgba(230,255,217,.35)"><img src="assets/halo-portrait.png" alt="Créateurs"><div class="clan-inner"><span class="clan-el">Primordial</span><h4>Créateurs</h4><div class="city">Origynea · l'atelier de la Source</div><div class="kw"><span>proto-matière</span><span>sacré</span><span>∞</span></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section">
+  <div class="wrap">
+    <div class="reveal" style="position:relative;border-radius:var(--r-xl);overflow:hidden;border:1px solid var(--line-strong);padding:clamp(48px,7vw,84px);text-align:center;background:linear-gradient(160deg,rgba(15,48,25,.9),rgba(5,20,10,.9))">
+      <h2 class="h1">Rencontrez les Nirmies dans le monde réel</h2>
+      <p class="lead mt-2" style="max-width:52ch;margin-inline:auto">Téléchargez l'application, partez en exploration et commencez votre collection.</p>
+      <div class="row mt-3" style="justify-content:center">
+        <a class="btn btn-primary btn-lg" href="application.html#bientot">Être prévenu de la sortie</a>
+        <a class="btn btn-ghost btn-lg" href="contact.html">Voir les solutions pro</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="assets/site.js"></script>
+</body>
+</html>

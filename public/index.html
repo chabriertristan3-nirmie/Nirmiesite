@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nirmie | Explorez, jouez, consommez autrement</title>
+<meta name="description" content="Nirmie transforme les lieux réels en terrains d'aventure. Un jeu pour les visiteurs, un outil de pilotage pour les organisateurs.">
+<link rel="icon" type="image/png" href="assets/emblem-electric.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Nirmie | Explorez, jouez, consommez autrement">
+<meta property="og:description" content="Nirmie transforme les lieux réels en terrains d'aventure. Un jeu pour les visiteurs, un outil de pilotage pour les organisateurs.">
+<meta property="og:image" content="assets/hero-group.webp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#03110A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+/* ---------- HERO ---------- */
+.hero { position: relative; padding-top: 132px; padding-bottom: 40px; overflow: hidden; }
+.hero-grid { display: grid; grid-template-columns: 1.04fr 0.96fr; gap: 40px; align-items: center; }
+.hero h1 { margin-bottom: 22px; }
+.hero .lead { max-width: 40ch; }
+.hero-cta { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 30px; }
+.hero-downloads { display: flex; gap: 22px; align-items: center; margin-top: 30px; flex-wrap: wrap; }
+.qr {
+  width: 104px; height: 104px; border-radius: 16px; padding: 9px;
+  background: #fff; flex: 0 0 auto; position: relative;
+  box-shadow: 0 8px 30px rgba(79,217,0,.25);
+}
+.qr svg { width: 100%; height: 100%; display: block; }
+.qr-label { font-size: 12.5px; color: var(--ink-mute); max-width: 12ch; line-height: 1.35; }
+
+/* phone composition */
+.hero-stage { position: relative; height: 600px; display: flex; align-items: center; justify-content: center; }
+.hero-halo {
+  position: absolute; width: 560px; height: 560px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(79,217,0,.35), rgba(79,217,0,.06) 45%, transparent 70%);
+  filter: blur(6px); animation: pulse-glow 7s ease-in-out infinite;
+}
+.ring {
+  position: absolute; border-radius: 50%; border: 1px solid rgba(123,238,60,.18);
+}
+.ring.r1 { width: 440px; height: 440px; }
+.ring.r2 { width: 600px; height: 600px; border-style: dashed; animation: spin-slow 60s linear infinite; }
+.device {
+  position: relative; width: 290px; height: 588px; border-radius: 46px;
+  background: linear-gradient(160deg, #0c2d18, #051a0d);
+  border: 1px solid rgba(123,238,60,.3);
+  box-shadow: 0 40px 90px rgba(0,0,0,.6), 0 0 0 8px rgba(5,20,10,.8), var(--glow-soft);
+  padding: 12px; z-index: 3;
+}
+.device::before {
+  content: ""; position: absolute; top: 14px; left: 50%; transform: translateX(-50%);
+  width: 110px; height: 26px; background: #04140a; border-radius: 0 0 16px 16px; z-index: 4;
+}
+.device-screen {
+  width: 100%; height: 100%; border-radius: 36px; overflow: hidden; position: relative;
+  background: #02100a;
+}
+.device-screen img { width: 100%; height: 100%; object-fit: cover; }
+.device-ui {
+  position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-between;
+  padding: 40px 16px 18px;
+}
+.ui-top { display: flex; justify-content: space-between; align-items: center; }
+.ui-pill { background: rgba(2,12,6,.7); backdrop-filter: blur(8px); border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; font-size: 11px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+.ui-aeth { color: var(--electric); }
+.ui-bottom { background: rgba(2,12,6,.78); backdrop-filter: blur(10px); border: 1px solid var(--line); border-radius: 20px; padding: 13px 15px; }
+.ui-bottom .t { font-family: var(--display); font-weight: 600; font-size: 13px; }
+.ui-bottom .s { font-size: 11px; color: var(--ink-mute); margin-top: 2px; }
+.ui-prog { height: 5px; border-radius: 999px; background: rgba(255,255,255,.1); margin-top: 9px; overflow: hidden; }
+.ui-prog span { display: block; height: 100%; width: 62%; background: linear-gradient(90deg, var(--electric-deep), var(--electric)); border-radius: 999px; }
+
+.float-mon { position: absolute; z-index: 4; filter: drop-shadow(0 16px 30px rgba(0,0,0,.5)); }
+.float-mon img { width: 100%; height: auto; }
+.fm1 { width: 168px; left: -22px; top: 54px; }
+.fm2 { width: 132px; right: -26px; bottom: 96px; }
+.map-pin {
+  position: absolute; z-index: 5; width: 34px; height: 34px; border-radius: 50% 50% 50% 0;
+  background: var(--electric); transform: rotate(-45deg);
+  box-shadow: 0 6px 18px rgba(79,217,0,.5); display: flex; align-items: center; justify-content: center;
+}
+.map-pin::after { content: ""; width: 12px; height: 12px; border-radius: 50%; background: #04140a; }
+.mp1 { left: 30px; bottom: 150px; animation: floaty 5s ease-in-out infinite; }
+.mp2 { right: 40px; top: 120px; animation: floaty 6s ease-in-out infinite .8s; }
+
+.scroll-cue { display:flex; align-items:center; gap:10px; color: var(--ink-mute); font-size:12px; letter-spacing:.16em; text-transform:uppercase; margin-top: 44px; }
+.scroll-cue .line { width: 46px; height:1px; background: var(--line-strong); position: relative; overflow: hidden;}
+.scroll-cue .line::after { content:""; position:absolute; inset:0; width:40%; background: var(--electric); animation: cue 2.4s ease-in-out infinite; }
+@keyframes cue { 0%{transform:translateX(-100%)} 100%{transform:translateX(280%)} }
+
+/* punchline */
+.punch { border-top:1px solid var(--line); border-bottom:1px solid var(--line); background: rgba(79,217,0,.03); }
+.punch-inner { display:flex; align-items:center; justify-content:center; gap: 26px; padding: 30px 0; flex-wrap:wrap; text-align:center; }
+.punch b { font-family:var(--display); font-weight:700; font-size: clamp(1.1rem,2vw,1.5rem); }
+.punch .dot { width:7px; height:7px; border-radius:50%; background: var(--electric); box-shadow: var(--glow-soft); }
+
+/* saison des braises */
+.season { position:relative; overflow:hidden; padding:110px 0; background:radial-gradient(ellipse 70% 60% at 75% 50%, rgba(255,106,40,.22), transparent 70%), linear-gradient(180deg, #120805 0%, #1d0c06 50%, #0d0704 100%); border-top:1px solid rgba(255,122,61,.18); border-bottom:1px solid rgba(255,122,61,.18); }
+.season-grid { display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr); gap:60px; align-items:center; position:relative; z-index:2; }
+.season .s-eyebrow { display:inline-flex; align-items:center; gap:10px; font-family:var(--display); font-weight:700; font-size:12.5px; letter-spacing:.24em; text-transform:uppercase; color:#FF7A3D; }
+.season .s-eyebrow .live { width:8px; height:8px; border-radius:50%; background:#FF7A3D; box-shadow:0 0 0 0 rgba(255,122,61,.7); animation:live 1.8s infinite; }
+@keyframes live { 70% { box-shadow:0 0 0 10px rgba(255,122,61,0); } 100% { box-shadow:0 0 0 0 rgba(255,122,61,0); } }
+.season h2 { font-size:clamp(2.3rem,5vw,4rem); line-height:1.02; margin:16px 0 18px; text-wrap:balance; }
+.season h2 em { font-style:normal; background:linear-gradient(100deg,#FFB547,#FF6A28 55%,#FF3D1F); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.season .lead { color:#e9d6cb; max-width:52ch; }
+.s-mechs { display:grid; gap:12px; margin:30px 0 34px; }
+.s-mech { display:grid; grid-template-columns:44px 1fr; gap:16px; align-items:center; padding:16px 18px; border-radius:var(--r); border:1px solid rgba(255,122,61,.2); background:rgba(255,122,61,.05); transition:border-color .3s, transform .4s var(--ease), background .3s; }
+.s-mech:hover { border-color:rgba(255,122,61,.55); background:rgba(255,122,61,.09); transform:translateX(6px); }
+.s-mech .ic { width:44px; height:44px; border-radius:13px; background:linear-gradient(145deg,#FF8A3D,#E2401C); display:flex; align-items:center; justify-content:center; color:#2a0c02; font-family:var(--display); font-weight:800; box-shadow:0 0 22px rgba(255,106,40,.4); }
+.s-mech .ic svg { width:20px; height:20px; }
+.s-mech b { font-family:var(--display); font-size:1.02rem; display:block; }
+.s-mech span { color:#cdb7aa; font-size:14px; }
+.btn-ember { background:linear-gradient(135deg,#FF8A3D,#FF5A1F); color:#2a0c02; box-shadow:0 0 0 1px rgba(255,122,61,.5), 0 0 30px rgba(255,90,31,.35); }
+.btn-ember:hover { box-shadow:0 0 0 1px rgba(255,122,61,.8), 0 0 46px rgba(255,90,31,.55); transform:translateY(-2px); }
+.s-cta { display:flex; gap:12px; flex-wrap:wrap; }
+.s-stage { position:relative; display:flex; justify-content:center; min-height:560px; align-items:center; }
+.s-stage .halo { position:absolute; width:440px; height:440px; border-radius:50%; background:radial-gradient(circle, rgba(255,106,40,.45), rgba(255,106,40,0) 68%); filter:blur(10px); animation:pulse-glow 5s ease-in-out infinite; }
+.s-stage .ring { position:absolute; width:500px; height:500px; border-radius:50%; border:1px dashed rgba(255,122,61,.3); animation:spin-slow 60s linear infinite; }
+.s-phone { position:relative; width:270px; aspect-ratio:945/2048; border-radius:42px; padding:9px; background:#0b0503; border:1px solid rgba(255,122,61,.35); box-shadow:0 40px 90px rgba(0,0,0,.6), 0 0 60px rgba(255,90,31,.25); transform:rotate(3deg); z-index:2; }
+.s-phone img { width:100%; height:100%; object-fit:cover; object-position:top; border-radius:34px; display:block; }
+.s-flamik { position:absolute; left:-4%; bottom:4%; width:210px; z-index:3; filter:drop-shadow(0 20px 30px rgba(0,0,0,.5)) drop-shadow(0 0 26px rgba(255,106,40,.45)); animation:floaty 6s ease-in-out infinite; }
+.s-flameli { position:absolute; right:-2%; top:6%; width:150px; z-index:3; filter:drop-shadow(0 0 22px rgba(255,106,40,.5)); animation:floaty-slow 7s ease-in-out infinite; animation-delay:-2s; }
+.s-tag { position:absolute; z-index:4; right:2%; bottom:16%; padding:10px 14px; border-radius:14px; background:rgba(20,8,4,.85); border:1px solid rgba(255,122,61,.4); backdrop-filter:blur(8px); font-family:var(--display); font-size:13px; }
+.s-tag b { color:#FF7A3D; font-size:1.1rem; margin-right:6px; }
+.embers { position:absolute; inset:0; pointer-events:none; z-index:1; }
+.embers i { position:absolute; bottom:-20px; width:var(--s,5px); height:var(--s,5px); border-radius:50%; background:radial-gradient(circle,#FFD08A,#FF6A28 60%,transparent 70%); opacity:0; animation:ember var(--d,9s) linear infinite; animation-delay:var(--dl,0s); }
+@keyframes ember { 0% { transform:translate(0,0); opacity:0; } 10% { opacity:.95; } 80% { opacity:.6; } 100% { transform:translate(var(--x,30px),-115vh); opacity:0; } }
+@media (max-width:960px){ .season-grid { grid-template-columns:1fr; gap:30px; } .s-stage { min-height:520px; order:-1; } }
+@media (max-width:560px){ .season { padding:80px 0; } .s-phone { width:220px; } .s-flamik { width:150px; left:0; } .s-flameli { width:110px; right:0; } .s-stage .ring { width:360px; height:360px; } .s-stage .halo { width:320px; height:320px; } }
+@media (prefers-reduced-motion: reduce){ .embers { display:none; } }
+
+/* double entry */
+.entry-card { padding: 0; overflow: hidden; }
+.entry-media { height: 220px; position: relative; overflow: hidden; }
+.entry-media img { width:100%; height:100%; object-fit: cover; transition: transform .8s var(--ease); }
+.entry-card:hover .entry-media img { transform: scale(1.06); }
+.entry-media::after { content:""; position:absolute; inset:0; background: linear-gradient(180deg, transparent 30%, rgba(6,27,14,.85) 92%); }
+.entry-badge { position:absolute; top:18px; left:18px; z-index:2; }
+.entry-body { padding: 28px 30px 32px; }
+.entry-body h3 { font-size: 1.7rem; margin-bottom: 12px; }
+
+/* explore cards (image-topped) */
+.explore .entry-body h4 { font-size: 1.3rem; }
+.explore .entry-body p { color: var(--ink-soft); font-size: 14.5px; margin: 8px 0 0; }
+.explore .entry-media img { transition: transform .8s var(--ease); }
+.explore .entry-card:hover .entry-media img { transform: scale(1.06); }
+
+/* univers teaser */
+.univ { position: relative; border-radius: var(--r-xl); overflow:hidden; border:1px solid var(--line); }
+.univ-bg { position:absolute; inset:0; }
+.univ-bg img { width:100%; height:100%; object-fit:cover; }
+.univ-bg::after { content:""; position:absolute; inset:0; background: linear-gradient(100deg, rgba(2,12,6,.95) 30%, rgba(2,12,6,.5) 70%, transparent); }
+.univ-inner { position:relative; padding: clamp(40px,6vw,80px); max-width: 620px; }
+
+/* stats */
+.stat-row { display:grid; grid-template-columns: repeat(4,1fr); gap:20px; }
+.stat { text-align:left; }
+.stat .num { font-family:var(--display); font-weight:800; font-size: clamp(2.2rem,4vw,3.4rem); line-height:1; background: linear-gradient(160deg,#fff,var(--electric)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.stat .lab { color: var(--ink-soft); font-size:14px; margin-top:10px; max-width: 22ch; }
+.proof-head { display:flex; align-items:baseline; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:22px; padding-bottom:14px; border-bottom:1px solid var(--line); }
+.proof-head b { font-family:var(--display); font-size:1.05rem; }
+.proof-head span { font-size:13px; color:var(--ink-mute); }
+.proof-block + .proof-block { margin-top:54px; }
+
+/* final cta */
+.cta-band { position:relative; border-radius: var(--r-xl); overflow:hidden; border:1px solid var(--line-strong); padding: clamp(48px,7vw,84px); text-align:center; background: linear-gradient(160deg, rgba(15,48,25,.9), rgba(5,20,10,.9)); }
+.cta-band::before { content:""; position:absolute; inset:0; background: radial-gradient(700px 300px at 50% -10%, rgba(79,217,0,.3), transparent 70%); }
+.cta-band > * { position: relative; }
+
+@media (max-width: 940px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-stage { height: 520px; order: -1; margin-bottom: 10px; }
+  .mini { grid-template-columns: 1fr; }
+  .stat-row { grid-template-columns: 1fr 1fr; gap: 28px; }
+}
+@media (max-width: 560px) {
+  .hero { padding-top: 110px; }
+  .hero-stage { height: 460px; }
+  .device { width: 240px; height: 488px; }
+  .fm1 { width: 124px; left: -10px; }
+  .fm2 { width: 100px; right: -12px; }
+}
+</style>
+</head>
+<body data-page="accueil">
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow reveal">Aventure mobile · Géogamification</span>
+      <h1 class="h-hero reveal" data-delay="1">Explorez, jouez,<br><span class="grad-text">consommez autrement.</span></h1>
+      <p class="lead reveal" data-delay="2">Nirmie transforme les lieux réels en terrains d'aventure. Explorez votre ville, sauvez des créatures, découvrez des commerces et vivez une expérience mobile ludique, locale et mesurable.</p>
+      <div class="hero-cta reveal" data-delay="3">
+        <a class="btn btn-primary btn-lg" href="application.html#bientot">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v13m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
+          Télécharger l'application
+        </a>
+        <a class="btn btn-ghost btn-lg" href="contact.html">Organiser une animation</a>
+      </div>
+      <div class="hero-downloads reveal" data-delay="4">
+        <div class="store-badges" id="hero-badges"></div>
+        <div class="row" style="gap:14px">
+          <div class="qr" aria-label="QR code de téléchargement">
+            <svg viewBox="0 0 100 100" id="qr-svg"></svg>
+          </div>
+          <span class="qr-label">Bientôt : scanne pour télécharger l'app</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-stage reveal" data-delay="2">
+      <div class="hero-halo"></div>
+      <div class="ring r2"></div>
+      <div class="ring r1"></div>
+      <div class="float-mon fm1 floaty"><img src="assets/cut-gromousse.png" alt="Nirmie Gromousse"></div>
+      <div class="float-mon fm2 floaty-slow"><img src="assets/n-floriny.png" alt="Nirmie Floriny"></div>
+      <div class="map-pin mp1"></div>
+      <div class="map-pin mp2"></div>
+      <div class="device">
+        <div class="device-screen">
+          <img src="assets/screens/app-carte.jpg" alt="Carte de l'application Nirmie" style="object-fit:cover;object-position:top">
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="wrap"><div class="scroll-cue"><span class="line"></span> Découvrir l'aventure</div></div>
+</header>
+
+<!-- ================= PUNCHLINE ================= -->
+<section class="punch">
+  <div class="wrap punch-inner">
+    <b>Un jeu pour les visiteurs.</b>
+    <span class="dot"></span>
+    <b>Un outil de pilotage pour les organisateurs.</b>
+  </div>
+</section>
+
+<!-- ================= SAISON DES BRAISES ================= -->
+<section class="season" id="saison">
+  <div class="embers" id="embers"></div>
+  <div class="wrap season-grid">
+    <div>
+      <span class="s-eyebrow reveal"><span class="live"></span>Saison 1 · En cours</span>
+      <h2 class="reveal" data-delay="1">La <em>Saison des Braises</em> est lancée</h2>
+      <p class="lead reveal" data-delay="2">Flamik s'est réveillé. Pendant toute la saison, chaque Nirmie Pyronis que tu réchauffes rapporte une Braise. Forme ton escorte de feu et grimpe les paliers avant la fin de la saison.</p>
+      <div class="s-mechs">
+        <div class="s-mech reveal" data-delay="2"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c1 4 5 5.5 5 10a5 5 0 0 1-10 0c0-2.5 1.5-3.5 2-5 1 1 1.5 2 1.5 3 1-1.5 1.5-4 1.5-8z"/></svg></div><div><b>Réchauffe les Pyronis</b><span>Chaque Nirmie de feu réchauffé te rapporte une Braise.</span></div></div>
+        <div class="s-mech reveal" data-delay="3"><div class="ic">5</div><div><b>Forme ton escorte</b><span>Cinq Nirmies marchent avec toi et gagnent de l'XP à chaque kilomètre.</span></div></div>
+        <div class="s-mech reveal" data-delay="4"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16M6 16l3-8 3 5 3-9 3 12"/></svg></div><div><b>Franchis les paliers</b><span>Accumule les Braises et débloque chaque palier de la saison.</span></div></div>
+      </div>
+      <div class="s-cta reveal" data-delay="4">
+        <a class="btn btn-ember btn-lg" href="application.html#bientot">Rejoindre la saison</a>
+        <a class="btn btn-ghost btn-lg" href="univers.html">Découvrir le clan Pyronis</a>
+      </div>
+    </div>
+    <div class="s-stage reveal" data-delay="2">
+      <div class="halo"></div><div class="ring"></div>
+      <div class="s-phone"><img src="assets/screens/app-accueil.jpg" alt="Écran de la Saison des Braises dans l'application Nirmie"></div>
+      <img class="s-flamik" src="assets/c-flamik.png" alt="Flamik, réveillé">
+      <img class="s-flameli" src="assets/n-flameli.png" alt="Flameli, Nirmie Pyronis">
+      <div class="s-tag"><b>491</b>Braises récoltées</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DOUBLE ENTRY ================= -->
+<section class="section" id="entrees">
+  <div class="wrap">
+    <div class="center" style="max-width:680px;margin-inline:auto;margin-bottom:54px">
+      <span class="eyebrow reveal" style="justify-content:center">Deux mondes, une appli</span>
+      <h2 class="h1 reveal mt-1" data-delay="1">Choisissez votre porte d'entrée</h2>
+    </div>
+    <div class="grid grid-2">
+      <!-- Joueurs -->
+      <article class="card entry-card reveal">
+        <div class="entry-media">
+          <img src="assets/scene-a.png" alt="Aventure dans la forêt magique">
+          <span class="chip entry-badge">Pour les joueurs</span>
+        </div>
+        <div class="entry-body">
+          <h3>Vivez une aventure unique</h3>
+          <p class="lead" style="font-size:1rem">Partez à la recherche des Nirmies cachés dans les lieux réels. Explorez, collectez de l'Ætheris, sauvez des créatures et complétez votre collection.</p>
+          <ul class="bullets mt-2">
+            <li>Explorez votre ville</li>
+            <li>Sauvez des Nirmies</li>
+            <li>Collectionnez et progressez</li>
+            <li>Gagnez des récompenses</li>
+          </ul>
+          <a class="btn btn-primary mt-3" href="application.html">Découvrir l'aventure
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m0 0l-6-6m6 6l-6 6"/></svg>
+          </a>
+        </div>
+      </article>
+      <!-- Pros -->
+      <article class="card entry-card reveal" data-delay="1">
+        <div class="entry-media">
+          <img src="assets/scene-g.png" alt="Pilotage des flux et de l'animation">
+          <span class="chip entry-badge">Pour les professionnels</span>
+        </div>
+        <div class="entry-body">
+          <h3>Animez vos lieux et mesurez l'impact</h3>
+          <p class="lead" style="font-size:1rem">Nirmie aide les villes, commerces, salons et événements à attirer des visiteurs, répartir les flux, valoriser des lieux et produire des données concrètes après l'animation.</p>
+          <ul class="bullets mt-2">
+            <li>Plus de visiteurs</li>
+            <li>Une expérience mémorable</li>
+            <li>Des données concrètes</li>
+            <li>Une solution clé en main</li>
+          </ul>
+          <a class="btn btn-ghost mt-3" href="animations-pro.html">Voir les solutions professionnelles
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m0 0l-6-6m6 6l-6 6"/></svg>
+          </a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= HOW IT WORKS (teaser) ================= -->
+<section class="section-sm" id="comment">
+  <div class="wrap">
+    <div class="row" style="justify-content:space-between;align-items:flex-end;margin-bottom:40px;gap:20px">
+      <div>
+        <span class="eyebrow reveal">L'application</span>
+        <h2 class="h2 reveal mt-1" data-delay="1">Jouer, c'est explorer le monde réel</h2>
+      </div>
+      <a class="btn btn-ghost reveal" data-delay="2" href="application.html">Comment jouer →</a>
+    </div>
+    <div class="grid grid-3 explore">
+      <article class="card entry-card reveal">
+        <div class="entry-media" style="height:190px"><img src="assets/scene-i.png" alt="Explorer un lieu réel"></div>
+        <div class="entry-body" style="padding:24px 26px 28px">
+          <h4>Explorez les lieux</h4>
+          <p>Déplacez-vous réellement dans la ville, le salon ou le centre commercial pour révéler les parcours.</p>
+        </div>
+      </article>
+      <article class="card entry-card reveal" data-delay="1">
+        <div class="entry-media" style="height:190px"><img src="assets/screens/app-parcours.jpg" alt="Trouver des Nirmies" style="object-position:center 35%"></div>
+        <div class="entry-body" style="padding:24px 26px 28px">
+          <h4>Trouvez les Nirmies</h4>
+          <p>Les créatures se révèlent au fil du parcours. Réveillez celles tombées en veille pour les ajouter à votre collection.</p>
+        </div>
+      </article>
+      <article class="card entry-card reveal" data-delay="2">
+        <div class="entry-media" style="height:190px"><img src="assets/glow-pose.png" alt="Collecter l'Ætheris"></div>
+        <div class="entry-body" style="padding:24px 26px 28px">
+          <h4>Collectez l'Ætheris</h4>
+          <p>Gagnez de l'énergie en validant des points d'intérêt, sauvez des créatures et complétez votre collection.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= UNIVERS TEASER ================= -->
+<section class="section">
+  <div class="wrap">
+    <div class="univ reveal">
+      <div class="univ-bg" data-parallax="0.04"><img src="assets/scene-h.png" alt="L'univers Nirmie, l'Ætheris"></div>
+      <div class="univ-inner">
+        <span class="eyebrow">L'univers Nirmie</span>
+        <h2 class="h1 mt-1">Une énergie vivante : l'Ætheris</h2>
+        <p class="lead mt-2">Nirmia était une planète vivante traversée par l'Ætheris. Après la chute de leur monde, les Nirmies se sont exilés sur Terre, beaucoup sont tombés en veille. Aux joueurs d'explorer le monde réel pour collecter l'Ætheris et les réveiller.</p>
+        <div class="row mt-3" style="gap:10px">
+          <span class="chip">Yeux verts = vivant</span>
+          <span class="chip">Regard vide = veille</span>
+          <span class="chip">8 clans originels</span>
+        </div>
+        <a class="btn btn-primary mt-3" href="univers.html">Découvrir les Nirmies
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m0 0l-6-6m6 6l-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PREUVES / IMPACT ================= -->
+<section class="section-sm" id="preuves">
+  <div class="wrap">
+    <div class="center" style="max-width:680px;margin-inline:auto;margin-bottom:50px">
+      <span class="eyebrow reveal" style="justify-content:center">Des résultats mesurés</span>
+      <h2 class="h1 reveal mt-1" data-delay="1">Des preuves sur le terrain.</h2>
+    </div>
+    <div class="proof-block">
+      <div class="proof-head reveal"><b>Preuve terrain : Pontoise</b><span>Première opération Nirmie · 3 semaines en centre-ville</span></div>
+      <div class="stat-row">
+        <div class="stat reveal"><div class="num">60+</div><div class="lab">commerces participants</div></div>
+        <div class="stat reveal" data-delay="1"><div class="num">365</div><div class="lab">visites générées en 3 semaines</div></div>
+        <div class="stat reveal" data-delay="2"><div class="num">93%</div><div class="lab">des commerces visités</div></div>
+        <div class="stat reveal" data-delay="3"><div class="num">5,8</div><div class="lab">visites en moyenne par commerce</div></div>
+      </div>
+    </div>
+    <div class="proof-block">
+    <div class="proof-head reveal"><b>Pourquoi animer ?</b><span>Source : Association des Maires de France (AMF)</span></div>
+    <div class="stat-row">
+      <div class="stat reveal"><div class="num">+10 à 20%</div><div class="lab">de chiffre d'affaires pour les commerces de proximité animés</div></div>
+      <div class="stat reveal" data-delay="1"><div class="num">+48%</div><div class="lab">d'engagement grâce à la gamification</div></div>
+      <div class="stat reveal" data-delay="2"><div class="num">+22%</div><div class="lab">de fidélisation des visiteurs en moyenne</div></div>
+      <div class="stat reveal" data-delay="3"><div class="num">73%</div><div class="lab">des Français préfèrent les centres-villes animés</div></div>
+    </div>
+    </div>
+    <div class="center mt-4 reveal">
+      <a class="btn btn-ghost" href="animations-pro.html">Voir les animations professionnelles →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FINAL CTA ================= -->
+<section class="section">
+  <div class="wrap">
+    <div class="cta-band reveal">
+      <span class="eyebrow" style="justify-content:center">Rejoignez l'aventure</span>
+      <h2 class="h1 mt-2">Le jeu qui fait battre le cœur des villes</h2>
+      <p class="lead mt-2" style="max-width:54ch;margin-inline:auto">Téléchargez l'application pour jouer, ou organisez une animation Nirmie pour dynamiser votre territoire.</p>
+      <div class="row mt-3" style="justify-content:center">
+        <a class="btn btn-primary btn-lg" href="application.html#bientot">Télécharger l'application</a>
+        <a class="btn btn-ghost btn-lg" href="contact.html">Organiser une animation</a>
+      </div>
+      <div class="store-badges mt-3" id="cta-badges" style="justify-content:center"></div>
+    </div>
+  </div>
+</section>
+
+<script src="assets/site.js"></script>
+<script>
+  // store badges in hero + cta
+  const sb = window.NIRMIE_storeBadge;
+  document.getElementById('hero-badges').innerHTML = sb('apple','') + sb('google','');
+  document.getElementById('cta-badges').innerHTML = sb('apple','') + sb('google','');
+
+  // decorative QR (faux) with emblem center
+  (function(){
+    const svg = document.getElementById('qr-svg');
+    const N = 21, cell = 100 / N;
+    let r = 7; const rnd = () => (r = (r * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff;
+    let html = '<rect width="100" height="100" fill="#fff"/>';
+    for (let y=0;y<N;y++) for (let x=0;x<N;x++){
+      const finder = (x<7&&y<7)||(x>=N-7&&y<7)||(x<7&&y>=N-7);
+      const center = x>7&&x<13&&y>7&&y<13;
+      if (center) continue;
+      if (finder ? ((x%6===0||y%6===0)|| (x>=2&&x<=4&&y>=2&&y<=4) || (x>=N-5&&x<=N-3&&y>=2&&y<=4) || (x>=2&&x<=4&&y>=N-5&&y<=N-3)) : rnd()>0.55) {
+        html += `<rect x="${x*cell}" y="${y*cell}" width="${cell}" height="${cell}" fill="#022800" rx="1"/>`;
+      }
+    }
+    svg.innerHTML = html;
+    // center emblem
+    const img = document.createElementNS('http://www.w3.org/2000/svg','image');
+    img.setAttribute('href','assets/emblem-forest.png');
+    img.setAttribute('x','38'); img.setAttribute('y','38'); img.setAttribute('width','24'); img.setAttribute('height','24');
+    svg.appendChild(img);
+  })();
+
+  // count-up
+  const fmt = (v) => Number.isInteger(v) ? v.toLocaleString('fr-FR') : v.toLocaleString('fr-FR',{minimumFractionDigits:1,maximumFractionDigits:1});
+  const cio = new IntersectionObserver((es)=>es.forEach(e=>{
+    if(!e.isIntersecting) return; cio.unobserve(e.target);
+    const el = e.target, target = parseFloat(el.dataset.count), suf = el.dataset.suffix||'';
+    const dur = 1400, t0 = performance.now(), dec = el.dataset.count.includes('.');
+    (function step(t){
+      const p = Math.min(1,(t-t0)/dur), e2 = 1-Math.pow(1-p,3);
+      const v = dec ? Math.round(target*e2*10)/10 : Math.round(target*e2);
+      el.textContent = fmt(v)+suf;
+      if(p<1) requestAnimationFrame(step);
+    })(t0);
+  }),{threshold:.5});
+  document.querySelectorAll('[data-count]').forEach(el=>cio.observe(el));
+</script>
+<script>
+(function(){ const e=document.getElementById('embers'); if(!e) return; let h='';
+  for(let k=0;k<28;k++){ const l=Math.random()*100, s=3+Math.random()*5, d=7+Math.random()*9, dl=-Math.random()*16, x=(Math.random()*80-40)|0;
+    h+='<i style="left:'+l+'%;--s:'+s+'px;--d:'+d+'s;--dl:'+dl+'s;--x:'+x+'px"></i>'; }
+  e.innerHTML=h; })();
+</script>
+</body>
+</html>
